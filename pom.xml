@@ -42,7 +42,7 @@
             <archive>
               <manifest>
                 <addClasspath>true</addClasspath>
-                <mainClass>co.edu.uniquindio.poo.App</mainClass>
+                <mainClass>co.edu.uniquindio.poo.Main</mainClass>
               </manifest>
             </archive>
           </configuration>

@@ -8,30 +8,30 @@ import java.util.*;
 
 public class GestorQuindioExpress {
 
-    // --- Colecciones principales ---
+    // Colecciones principales
     private final List<Paquete> paquetesRegistrados = new ArrayList<>();       
     private final Map<String, Paquete> paquetesPorCodigo = new HashMap<>();    
     private final Set<String> municipios = new HashSet<>();                    
     private final Set<String> municipiosOrdenados = new TreeSet<>();           
     private final Map<String, List<Paquete>> paquetesPorDestino = new HashMap<>();
 
-    // --- Colas para atencion ---
+    // Colas para atencion
     private final Queue<Paquete> colaLlegada = new ArrayDeque<>();             // FIFO
     private final PriorityQueue<Paquete> colaPrioridad =
             new PriorityQueue<>(new ComparadorDespacho());                     // despacho prioritario
 
-    // --- Historial con lista propia ---
+    // Historial con lista propia
     private final ListaSimplementeEnlazada<Paquete> historialEntregas =
             new ListaSimplementeEnlazada<>();
 
-    // --- Repartidores ---
+    // Repartidores
     private final Map<String, Repartidor> repartidores = new HashMap<>();
 
     // Marcador de entregados (para descartar de colas)
     private final Set<String> entregados = new HashSet<>();
 
 
-    //  REGISTRO
+    // REGISTRO
     public boolean registrarPaquete(Paquete p) {
         if (p == null) return false;
         if (paquetesPorCodigo.containsKey(p.getCodigo())) {
