@@ -30,8 +30,7 @@ public class GestorQuindioExpress {
     // Marcador de entregados (para descartar de colas)
     private final Set<String> entregados = new HashSet<>();
 
-
-    // REGISTRO
+    //  REGISTRO
     public boolean registrarPaquete(Paquete p) {
         if (p == null) return false;
         if (paquetesPorCodigo.containsKey(p.getCodigo())) {
@@ -59,7 +58,6 @@ public class GestorQuindioExpress {
 
 
     //  CONSULTAS
-    /** Consulta O(1) promedio. */
     public Paquete consultarPorCodigo(String codigo) {
         return paquetesPorCodigo.get(codigo);
     }
@@ -78,7 +76,7 @@ public class GestorQuindioExpress {
 
 
     
-    // FIFO(ignora ya entregados)
+    // FIFO
     public Paquete atenderPorOrdenDeLlegada() {
         while (!colaLlegada.isEmpty()) {
             Paquete p = colaLlegada.peek();
@@ -146,7 +144,6 @@ public class GestorQuindioExpress {
 
 
     //  RECURSIVIDAD
-    // Peso total de paquetes hacia un destino
     public double pesoTotalPorDestino(String destino) {
         return pesoTotalRec(0, destino);
     }
@@ -157,6 +154,7 @@ public class GestorQuindioExpress {
         double suma = p.getDestino().equals(destino) ? p.getPeso() : 0.0;
         return suma + pesoTotalRec(i + 1, destino);
     }
+    
     public int contarPrioridadMayorIgual(int minima) {
         return contarPrioridadRec(0, minima);
     }
@@ -168,7 +166,6 @@ public class GestorQuindioExpress {
     }
 
     //  DIVIDE Y VENCERAS
-
     public Paquete paqueteMayorPeso() {
         if (paquetesRegistrados.isEmpty()) return null;
         return mayorPesoRec(0, paquetesRegistrados.size() - 1);
@@ -201,11 +198,6 @@ public class GestorQuindioExpress {
     }
 
     //  ASIGNACION DE REPARTIDORES
-    
-    /**
-     * Asigna un repartidor disponible cuya zona coincida con el destino.
-     * Reglas: no disponible no recibe; zona debe coincidir.
-     */
     public Repartidor asignarRepartidor(Paquete p) {
         if (p == null) return null;
         if (entregados.contains(p.getCodigo())) return null;
@@ -214,6 +206,7 @@ public class GestorQuindioExpress {
                 r.setDisponible(false);
                 return r;
             }
+
         }
         return null;
     }
